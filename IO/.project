@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>IO</name>
+			<type>2</type>
+			<location>G:/J_Neon_workspace/IO</location>
+		</link>
+	</linkedResources>
 </projectDescription>
