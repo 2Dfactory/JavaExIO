@@ -46,7 +46,7 @@ public class MainFileIO3 {
 				
 			}
 			
-			System.out.println("Temps de lecture avec BufferedStream : " + (System.currentTimeMillis() - startTime) + "ms");
+			System.out.println("Temps de lecture/écriture avec BufferedStream : " + (System.currentTimeMillis() - startTime) + "ms");
 			
 			fis.close();
 			fos.close();
