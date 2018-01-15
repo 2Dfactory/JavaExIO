@@ -1,4 +1,4 @@
-package TestChWriterStrWriter;
+package TestWriterReader;
 
 import java.io.CharArrayReader;
 import java.io.CharArrayWriter;
