@@ -10,8 +10,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-//Essai sérialisation avec un objet sérialisable inclus
-public class MainFileIOS1 {
+//Essai sérialisation avec un objet transient inclus
+public class MainFileIOS2 {
 
 	public static void main(String[] args) {
 
@@ -23,9 +23,9 @@ public class MainFileIOS1 {
 			oos = new ObjectOutputStream(new BufferedOutputStream(
 					new FileOutputStream(new File("Files/game.txt"))));
 			
-			oos.writeObject(new Game("Assassin Creed", "Aventure", 45.69));
-			oos.writeObject(new Game("Tomb Raider", "Plateforme", 23.45));
-			oos.writeObject(new Game("Tetris", "Strategie", 2.5));
+			oos.writeObject(new Game2("Assassin Creed", "Aventure", 45.69));
+			oos.writeObject(new Game2("Tomb Raider", "Plateforme", 23.45));
+			oos.writeObject(new Game2("Tetris", "Strategie", 2.5));
 			
 			oos.close();
 			
@@ -35,9 +35,9 @@ public class MainFileIOS1 {
 			try{
 				System.out.println("Affichage des jeux");
 				System.out.println("*******************************");
-				System.out.println(((Game) ois.readObject()).toString());
-				System.out.println(((Game) ois.readObject()).toString());
-				System.out.println(((Game) ois.readObject()).toString());
+				System.out.println(((Game2) ois.readObject()).toString());
+				System.out.println(((Game2) ois.readObject()).toString());
+				System.out.println(((Game2) ois.readObject()).toString());
 			}
 			catch(ClassNotFoundException c){
 				c.printStackTrace();
