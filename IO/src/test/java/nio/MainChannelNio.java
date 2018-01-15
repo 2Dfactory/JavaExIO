@@ -1,4 +1,4 @@
-package testjavanio;
+package test.java.nio;
 
 import java.io.BufferedInputStream;
 import java.io.File;
