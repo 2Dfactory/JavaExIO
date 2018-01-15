@@ -1,50 +1,63 @@
 package test.java.io;
 
-import java.io.File;
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class MainFile {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
-		File f = new File("Files/test.txt");
-		System.out.println("Chemin absolut du fichier : "+f.getAbsolutePath());
-		System.out.println("Nom du fichier : "+f.getName());
-		System.out.println("Est-ce qu'il existe ? "+f.exists());
-		System.out.println("Est-ce un répertoire ? "+f.isDirectory());
-		System.out.println("Est-ce un fichier ? "+f.isFile());
+		//Récupération des informations sur un fichier avec l'interface Path et la class Files
+		Path path = Paths.get("Files/test.txt");
+		System.out.println("Chemin absolut du fichier : "+ path.toAbsolutePath());
+		System.out.println("Nom du fichier : "+ path.getFileName());
+		System.out.println("Est-ce qu'il existe ? "+ Files.exists(path));
+		System.out.println("Est-ce un répertoire ? "+ Files.isDirectory(path));
 		
 		System.out.println("Affichage des lecteurs à la racine du PC : \n");
 		
-		for (File file : f.listRoots()){
+		/*
+		 * Récupération de la liste des répertoires dans une collection typée via l'objet FileSystem
+		 * qui représente le système de fichier de l'OS hébergeant la JVM
+		 */
+		Iterable<Path> roots = FileSystems.getDefault().getRootDirectories();
+		
+		//Parcours de la collection typée
+		for(Path chemin : roots) {
 			
-			System.out.println(file.getAbsolutePath());
+			System.out.println(chemin);
 			
-			try {
-				
-				int i = 1;
-				
-				for(File nom : file.listFiles()){
+			/*
+			 * Pour lister un répertoire il faut utiliser l'objet DirectoryStream.
+			 * L'objet Files permet de créer ce type d'objet afin de pouvoir l'utiliser
+			 */
+			try(DirectoryStream<Path> listing = Files.newDirectoryStream(chemin)){
+			
+			//Ajout d'un filtre au listing de répertoire :
+			//try(DirectoryStream<Path> listing = Files.newDirectoryStream(chemin, "*.txt")){
+
+				int i = 0;
+				for(Path nom : listing) {
 					
-					System.out.print("\t\t"+((nom.isDirectory()) ? nom.getName()+"/" : nom.getName()));
-					if((i%4) == 0) {
-						System.out.print("\n");
-					}
-					
+					System.out.println("\t\t" + ((Files.isDirectory(nom)) ? nom + "/" : nom));
 					i++;
+					if(i%4 == 0) System.out.println("\n");
 					
 				}
 				
-				System.out.print("\n");
-				
 			}
-			catch(NullPointerException e){
-				
-				System.out.println("Pas de fichier!!!");
-				
+			catch(IOException io) {
+				io.printStackTrace();
 			}
 			
+			
 		}
+			
 	}
-
 }
+
+
